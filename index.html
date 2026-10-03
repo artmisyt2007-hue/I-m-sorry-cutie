@@ -1,0 +1,491 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I'm Sorry, Yana ❤️</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        min-height: 100vh;
+        font-family: "Poppins", Arial, sans-serif;
+        background: linear-gradient(135deg, #ffe4ec, #fff5f7, #ffd6e2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        color: #4b2630;
+    }
+
+    /* Floating hearts */
+    .heart {
+        position: fixed;
+        bottom: -30px;
+        font-size: 20px;
+        opacity: 0.6;
+        animation: floatUp linear infinite;
+        pointer-events: none;
+    }
+
+    @keyframes floatUp {
+        from {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0;
+        }
+        20% {
+            opacity: 0.7;
+        }
+        to {
+            transform: translateY(-110vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    .card {
+        width: min(92%, 600px);
+        min-height: 560px;
+        background: rgba(255,255,255,0.78);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255,255,255,0.8);
+        border-radius: 30px;
+        padding: 45px 30px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(120, 40, 60, 0.18);
+        position: relative;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .emoji {
+        font-size: 65px;
+        animation: heartbeat 1.5s infinite;
+        margin-bottom: 15px;
+    }
+
+    @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.12); }
+    }
+
+    h1 {
+        font-size: clamp(32px, 7vw, 52px);
+        color: #d6335c;
+        margin-bottom: 18px;
+    }
+
+    .message {
+        font-size: 19px;
+        line-height: 1.7;
+        margin: 0 auto 30px;
+        max-width: 480px;
+    }
+
+    .question {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 30px;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        min-height: 65px;
+        position: relative;
+    }
+
+    button {
+        border: none;
+        border-radius: 50px;
+        padding: 15px 35px;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.25s;
+    }
+
+    #yesBtn {
+        background: #e83e68;
+        color: white;
+        box-shadow: 0 8px 20px rgba(232,62,104,0.3);
+    }
+
+    #yesBtn:hover {
+        transform: scale(1.08);
+        background: #d82d59;
+    }
+
+    #noBtn {
+        background: white;
+        color: #d6335c;
+        border: 2px solid #f2a0b5;
+        position: relative;
+        transition: left 0.25s ease, top 0.25s ease;
+    }
+
+    /* Celebration screen */
+    #celebration {
+        display: none;
+        animation: appear 0.8s ease forwards;
+    }
+
+    @keyframes appear {
+        from {
+            opacity: 0;
+            transform: scale(0.85);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .celebrate-title {
+        color: #d6335c;
+        font-size: clamp(30px, 7vw, 46px);
+        margin-bottom: 12px;
+    }
+
+    .celebrate-text {
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 25px;
+    }
+
+    .gifts {
+        display: flex;
+        justify-content: center;
+        align-items: end;
+        gap: 45px;
+        margin: 15px 0 25px;
+    }
+
+    /* Rose bouquet */
+    .bouquet {
+        position: relative;
+        width: 150px;
+        height: 170px;
+    }
+
+    .roses {
+        position: absolute;
+        top: 15px;
+        left: 20px;
+        font-size: 48px;
+        letter-spacing: -13px;
+        transform: rotate(-5deg);
+    }
+
+    .stem {
+        position: absolute;
+        width: 5px;
+        height: 90px;
+        background: #43884c;
+        left: 74px;
+        top: 65px;
+        transform: rotate(5deg);
+        border-radius: 5px;
+    }
+
+    .leaf {
+        position: absolute;
+        width: 35px;
+        height: 17px;
+        background: #43884c;
+        border-radius: 100% 0 100% 0;
+        left: 50px;
+        top: 105px;
+        transform: rotate(25deg);
+    }
+
+    .leaf2 {
+        left: 85px;
+        top: 120px;
+        transform: rotate(-25deg);
+    }
+
+    .wrap {
+        position: absolute;
+        bottom: 0;
+        left: 43px;
+        width: 70px;
+        height: 65px;
+        background: #f5b5c4;
+        clip-path: polygon(15% 0, 85% 0, 100% 100%, 0 100%);
+    }
+
+    /* Chocolate box */
+    .chocolate {
+        width: 155px;
+        height: 125px;
+        position: relative;
+        background: #6b3528;
+        border-radius: 10px;
+        box-shadow: 0 10px 20px rgba(60,20,10,0.25);
+        transform: rotate(2deg);
+    }
+
+    .chocolate-lid {
+        position: absolute;
+        top: -12px;
+        left: -5px;
+        width: 165px;
+        height: 38px;
+        background: #8b4a36;
+        border-radius: 8px;
+    }
+
+    .ribbon {
+        position: absolute;
+        width: 18px;
+        height: 125px;
+        background: #e7b34b;
+        left: 68px;
+        top: 0;
+    }
+
+    .choco {
+        position: absolute;
+        width: 30px;
+        height: 25px;
+        background: #3e1d18;
+        border-radius: 5px;
+    }
+
+    .c1 { left: 18px; top: 45px; }
+    .c2 { left: 55px; top: 45px; }
+    .c3 { left: 95px; top: 45px; }
+    .c4 { left: 35px; top: 78px; }
+    .c5 { left: 80px; top: 78px; }
+
+    .final-message {
+        color: #8c3048;
+        font-size: 17px;
+        font-weight: 500;
+    }
+
+    .signature {
+        margin-top: 15px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #d6335c;
+    }
+
+    .confetti {
+        position: fixed;
+        top: -20px;
+        font-size: 22px;
+        animation: confettiFall 3s linear forwards;
+        z-index: 20;
+        pointer-events: none;
+    }
+
+    @keyframes confettiFall {
+        to {
+            transform: translateY(110vh) rotate(720deg);
+            opacity: 0;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .card {
+            min-height: 540px;
+            padding: 30px 20px;
+        }
+
+        .message {
+            font-size: 16px;
+        }
+
+        .gifts {
+            gap: 15px;
+            transform: scale(0.85);
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- Floating hearts -->
+<div class="heart" style="left:5%; animation-duration:8s;">❤️</div>
+<div class="heart" style="left:15%; animation-duration:11s; animation-delay:2s;">💗</div>
+<div class="heart" style="left:30%; animation-duration:9s; animation-delay:1s;">💕</div>
+<div class="heart" style="left:55%; animation-duration:12s; animation-delay:3s;">❤️</div>
+<div class="heart" style="left:75%; animation-duration:10s; animation-delay:2s;">💖</div>
+<div class="heart" style="left:90%; animation-duration:8s; animation-delay:4s;">💗</div>
+
+<div class="card">
+
+    <!-- Apology -->
+    <div id="apology">
+
+        <div class="emoji">🥺❤️</div>
+
+        <h1>I'm Sorry, Yana</h1>
+
+        <p class="message">
+            Please forgive me, Yana. ❤️<br><br>
+            I know I made a mistake, and I'm genuinely sorry.
+            I promise I won't hurt you again.
+            I just want to make things right and see you smile again.
+        </p>
+
+        <div class="question">
+            Will you forgive me? 🥺
+        </div>
+
+        <div class="buttons">
+            <button id="yesBtn">Yes ❤️</button>
+            <button id="noBtn">No 😝</button>
+        </div>
+
+    </div>
+
+    <!-- Celebration -->
+    <div id="celebration">
+
+        <div class="emoji">🥰💖</div>
+
+        <div class="celebrate-title">
+            Thank You, Yana! ❤️
+        </div>
+
+        <p class="celebrate-text">
+            I promise I'll do my best to never hurt you again.
+            <br>
+            These little gifts are just for you. 🌹🍫
+        </p>
+
+        <div class="gifts">
+
+            <!-- Bouquet -->
+            <div class="bouquet">
+                <div class="roses">🌹🌹🌹</div>
+                <div class="stem"></div>
+                <div class="leaf"></div>
+                <div class="leaf leaf2"></div>
+                <div class="wrap"></div>
+            </div>
+
+            <!-- Chocolate -->
+            <div class="chocolate">
+                <div class="chocolate-lid"></div>
+                <div class="ribbon"></div>
+                <div class="choco c1"></div>
+                <div class="choco c2"></div>
+                <div class="choco c3"></div>
+                <div class="choco c4"></div>
+                <div class="choco c5"></div>
+            </div>
+
+        </div>
+
+        <div class="final-message">
+            🌹 A bouquet of roses for you<br>
+            🍫 And a box of chocolates, just because you deserve something sweet.
+        </div>
+
+        <div class="signature">
+            — From someone who is really sorry ❤️
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const apology = document.getElementById("apology");
+const celebration = document.getElementById("celebration");
+
+/* Playful NO button */
+
+function moveNoButton() {
+
+    const card = document.querySelector(".card");
+    const rect = card.getBoundingClientRect();
+
+    const maxX = Math.max(80, rect.width - noBtn.offsetWidth - 40);
+    const maxY = 120;
+
+    const randomX = Math.random() * maxX - maxX / 2;
+    const randomY = Math.random() * maxY - maxY / 2;
+
+    noBtn.style.position = "absolute";
+    noBtn.style.left = `calc(50% + ${randomX}px)`;
+    noBtn.style.top = `${randomY}px`;
+
+}
+
+/* Desktop */
+noBtn.addEventListener("mouseenter", moveNoButton);
+
+/* Mobile */
+noBtn.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    moveNoButton();
+});
+
+/* Also move when clicked */
+noBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    moveNoButton();
+});
+
+/* YES button */
+
+yesBtn.addEventListener("click", function() {
+
+    apology.style.display = "none";
+    celebration.style.display = "block";
+
+    createConfetti();
+
+});
+
+/* Celebration confetti */
+
+function createConfetti() {
+
+    const items = ["❤️", "💖", "🌹", "💕", "✨", "💗", "🌸"];
+
+    for (let i = 0; i < 45; i++) {
+
+        const confetti = document.createElement("div");
+
+        confetti.className = "confetti";
+        confetti.innerHTML =
+            items[Math.floor(Math.random() * items.length)];
+
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.animationDuration =
+            (2 + Math.random() * 3) + "s";
+
+        confetti.style.animationDelay =
+            Math.random() * 1.5 + "s";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+            confetti.remove();
+        }, 5000);
+    }
+}
+
+</script>
+
+</body>
+</html>
+```
